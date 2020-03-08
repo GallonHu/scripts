@@ -1,0 +1,103 @@
+{
+  "log": {
+    "error": "",
+    "loglevel": "info",
+    "access": ""
+  },
+  "inbounds": [
+    {
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "tls",
+          "http"
+        ]
+      },
+      "listen": "127.0.0.1",
+      "protocol": "socks",
+      "settings": {
+        "udp": false,
+        "auth": "noauth"
+      },
+      "port": "1080"
+    },
+    {
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "tls",
+          "http"
+        ]
+      },
+      "listen": "127.0.0.1",
+      "protocol": "http",
+      "settings": {
+        "timeout": 360
+      },
+      "port": "1087"
+    }
+  ],
+  "outbounds": [
+    {
+      "mux": {
+        "enabled": false,
+        "concurrency": 8
+      },
+      "protocol": "vmess",
+      "streamSettings": {
+        "wsSettings": {
+          "path": "/6aa0a068/",
+          "headers": {
+            "host": "www.free6666.net"
+          }
+        },
+        "tlsSettings": {
+          "allowInsecure": true
+        },
+        "security": "tls",
+        "network": "ws"
+      },
+      "tag": "proxy",
+      "settings": {
+        "vnext": [
+          {
+            "address": "www.free6666.net",
+            "users": [
+              {
+                "id": "bc0abab8-a0e7-40dd-8e20-7acabed8625a",
+                "alterId": 2,
+                "level": 0,
+                "security": "aes-128-gcm"
+              }
+            ],
+            "port": 443
+          }
+        ]
+      }
+    },
+    {
+      "tag": "direct",
+      "protocol": "freedom",
+      "settings": {
+        "domainStrategy": "AsIs",
+        "userLevel": 0
+      }
+    },
+    {
+      "tag": "block",
+      "protocol": "blackhole",
+      "settings": {
+        "response": {
+          "type": "none"
+        }
+      }
+    }
+  ],
+  "dns": {},
+  "routing": {
+    "settings": {
+      "domainStrategy": "AsIs",
+      "rules": []
+    }
+  }
+}
